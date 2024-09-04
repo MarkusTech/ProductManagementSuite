@@ -11,6 +11,7 @@
 - Expressjs
 - Typescript
 - Nodejs
+- MYSQL
 
 # To run Web Application
 - npm run dev
