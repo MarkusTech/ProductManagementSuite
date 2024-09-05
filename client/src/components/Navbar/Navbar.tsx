@@ -8,7 +8,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton"; // Use ListItemButton
+import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -62,17 +62,15 @@ const Navbar: React.FC = () => {
             </IconButton>
           )}
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            Responsive App
+            LOGO
           </Typography>
-          {!isMobile && (
-            <Box sx={{ display: "block" }}>
-              {navItems.map((item) => (
-                <IconButton color="inherit" key={item}>
-                  {item}
-                </IconButton>
-              ))}
-            </Box>
-          )}
+          <Box sx={{ display: { xs: "none", sm: "block" }, ml: "auto" }}>
+            {navItems.map((item) => (
+              <IconButton color="inherit" key={item}>
+                {item}
+              </IconButton>
+            ))}
+          </Box>
         </Toolbar>
       </AppBar>
       <nav>
