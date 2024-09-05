@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
             </IconButton>
           )}
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            Responsive App
+            Logo
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" }, ml: "auto" }}>
             {navItems.map((item) => (
