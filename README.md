@@ -18,4 +18,5 @@
 
 # To run Web Application
 
-- npm run dev
+- npm run dev - run with nodemon
+- npm start - run with ts-node
