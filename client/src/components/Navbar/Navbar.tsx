@@ -14,9 +14,14 @@ import Divider from "@mui/material/Divider";
 import CssBaseline from "@mui/material/CssBaseline";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
-const navItems = ["Home", "About", "Contact"];
+const navItems = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Contact", path: "/contact" },
+];
 
 const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -35,9 +40,9 @@ const Navbar: React.FC = () => {
       <Divider />
       <List>
         {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton>
-              <ListItemText primary={item} />
+          <ListItem key={item.name} disablePadding>
+            <ListItemButton component={Link} to={item.path}>
+              <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -48,7 +53,7 @@ const Navbar: React.FC = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="sticky">
+      <AppBar position="fixed" sx={{ top: 0, left: 0, right: 0 }}>
         <Toolbar>
           {isMobile && (
             <IconButton
@@ -62,12 +67,17 @@ const Navbar: React.FC = () => {
             </IconButton>
           )}
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            LOGO
+            Responsive App
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" }, ml: "auto" }}>
             {navItems.map((item) => (
-              <IconButton color="inherit" key={item}>
-                {item}
+              <IconButton
+                color="inherit"
+                key={item.name}
+                component={Link}
+                to={item.path}
+              >
+                {item.name}
               </IconButton>
             ))}
           </Box>
@@ -89,9 +99,9 @@ const Navbar: React.FC = () => {
           {drawer}
         </Drawer>
       </nav>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
         <Toolbar />
-        {/* Your main content goes here */}
+        {/* Main content */}
       </Box>
     </Box>
   );
