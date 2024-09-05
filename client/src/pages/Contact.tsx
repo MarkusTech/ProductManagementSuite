@@ -1,7 +1,7 @@
 import React from "react";
 
-const Index: React.FC = () => {
+const Contact: React.FC = () => {
   return <div>Contact Page</div>;
 };
 
-export default Index;
+export default Contact;
