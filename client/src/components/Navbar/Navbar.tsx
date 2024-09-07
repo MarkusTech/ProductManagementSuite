@@ -18,9 +18,10 @@ import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 const navItems = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
+  { name: "About", path: "/" },
   { name: "Contact", path: "/contact" },
+  { name: "Products", path: "/products" },
+  { name: "Services", path: "/services" },
 ];
 
 const Navbar: React.FC = () => {
