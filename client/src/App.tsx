@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import FeaturedProducts from "./pages/FeaturedProducts";
 import Services from "./pages/Services";
+import Admin from "./pages/admin";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/products" element={<FeaturedProducts />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>
     </Router>
