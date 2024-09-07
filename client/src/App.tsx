@@ -13,8 +13,8 @@ function App() {
       <div className="text-red-500">
         <Routes>
           <Route path="/" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
           <Route path="/products" element={<FeaturedProducts />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<Services />} />
         </Routes>
       </div>
