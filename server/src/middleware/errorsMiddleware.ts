@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 interface CustomError extends Error {
-  status?: number; // Optional status property
+  status?: number;
 }
 
 const errorHandler = (
