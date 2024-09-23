@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Product from "../models/Product"; // Adjust the path based on your structure
+import Product from "../models/Product";
 import Joi from "joi";
 import cloudinary from "../config/cloudinary.config";
 
