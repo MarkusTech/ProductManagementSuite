@@ -10,6 +10,9 @@ import "colors";
 import { body, validationResult } from "express-validator";
 import passport from "passport";
 
+// routes
+import categoryRoutes from "./routes/category.routes";
+
 // Initialize express app
 const app = express();
 
@@ -59,7 +62,8 @@ app.post(
 // Passport for authentication
 app.use(passport.initialize());
 
-// Routes
+// API
+app.use("/api/v1", categoryRoutes);
 
 // Error Handling Middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
