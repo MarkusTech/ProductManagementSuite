@@ -19,11 +19,22 @@ model User {
 }
 
 model Category {
-  categoryID   Int      @id @default(autoincrement())  // Primary key with auto-increment
-  categoryCode String   @unique                       // Unique category code
-  name         String                                // Category name
-  description  String?                               // Optional category description
-  status       Boolean   @default(true)               // Status (e.g., active/inactive)
-  createdAt    DateTime  @default(now())              // Timestamp for when the category was created
-  updatedAt    DateTime  @updatedAt                   // Timestamp for when the category was last updated
+  categoryID   Int      @id @default(autoincrement())
+  categoryCode String   @unique
+  name         String
+  description  String?
+  status       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Supplier {
+  supplierID    Int      @id @default(autoincrement())  // Primary key with auto-increment
+  supplierName  String                                // Name of the supplier
+  description   String?                               // Optional description
+  status        Boolean   @default(true)               // Status (e.g., active/inactive)
+  createdByID   Int                                    // ID of the user who created this supplier
+  modifiedByID  Int?                                   // ID of the user who last modified this supplier
+  createdAt     DateTime  @default(now())              // Timestamp for when the supplier was created
+  updatedAt     DateTime  @updatedAt                   // Timestamp for when the supplier was last updated
 }
