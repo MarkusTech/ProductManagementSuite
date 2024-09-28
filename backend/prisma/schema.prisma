@@ -40,14 +40,14 @@ model Supplier {
 }
 
 model Location {
-  locationID    Int      @id @default(autoincrement())  // Primary key with auto-increment
-  locationName  String                                // Name of the location
-  description   String?                               // Optional description of the location
-  status        Boolean   @default(true)               // Status of the location (active/inactive)
-  createdByID   Int                                    // ID of the user who created this location
-  modifiedByID  Int?                                   // ID of the user who last modified this location (optional)
-  createdAt     DateTime  @default(now())              // Timestamp for when the location was created
-  updatedAt     DateTime  @updatedAt                   // Timestamp for when the location was last updated
+  locationID    Int      @id @default(autoincrement()) 
+  locationName  String                               
+  description   String?                              
+  status        Boolean   @default(true)              
+  createdByID   Int                                   
+  modifiedByID  Int?                                  
+  createdAt     DateTime  @default(now())             
+  updatedAt     DateTime  @updatedAt 
 }
 
 model Item {
