@@ -1,6 +1,7 @@
 # WMR Backend With Expressjs and Mysql Template
 
 # 3rd Party Libraries
+
 - Cors
 - Helmet
 - morgan
@@ -13,3 +14,6 @@
 - express-validator
 - passport
 
+# prisma migration
+
+- npx prisma migrate dev --name init
