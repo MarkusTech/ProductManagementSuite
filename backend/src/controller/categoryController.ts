@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-import { CustomError } from "../utils/CustomError"; // Import the CustomError class
+import { CustomError } from "../utils/CustomError";
 
 const prisma = new PrismaClient();
 
