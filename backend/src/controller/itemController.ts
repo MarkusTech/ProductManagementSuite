@@ -1,5 +1,3 @@
-// src/controllers/ItemController.ts
-
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { CustomError } from "../utils/CustomError";

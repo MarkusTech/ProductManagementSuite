@@ -1,5 +1,3 @@
-// src/routes/itemRoutes.ts
-
 import { Router } from "express";
 import { ItemController } from "../controller/itemController";
 

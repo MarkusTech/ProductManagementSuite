@@ -1,5 +1,3 @@
-// src/routes/locationRoutes.ts
-
 import { Router } from "express";
 import { LocationController } from "../controller/locationController";
 

@@ -20,12 +20,12 @@ import itemRoutes from "./routes/item.routes";
 const app = express();
 
 // Middlewares
-app.use(cors()); // Enable CORS
-app.use(helmet()); // Security headers
-app.use(morgan("dev")); // Request logging
-app.use(bodyParser.json()); // Parse JSON bodies
-app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
-app.use(compression()); // Enable compression
+app.use(cors());
+app.use(helmet());
+app.use(morgan("dev"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(compression());
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
