@@ -65,7 +65,7 @@ app.use(passport.initialize());
 
 // API
 app.use("/api/v1", categoryRoutes);
-app.use("/api/v1", supplierRoutes);
+app.use("/api/v1/suppliers", supplierRoutes);
 
 // Error Handling Middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
