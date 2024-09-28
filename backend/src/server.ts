@@ -12,6 +12,7 @@ import passport from "passport";
 
 // routes
 import categoryRoutes from "./routes/category.routes";
+import supplierRoutes from "./routes/suppler.routes";
 
 // Initialize express app
 const app = express();
@@ -64,6 +65,7 @@ app.use(passport.initialize());
 
 // API
 app.use("/api/v1", categoryRoutes);
+app.use("/api/v1", supplierRoutes);
 
 // Error Handling Middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
