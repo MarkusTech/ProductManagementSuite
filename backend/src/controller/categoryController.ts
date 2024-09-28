@@ -26,7 +26,7 @@ export class CategoryController {
       });
     } catch (error: unknown) {
       if (error instanceof Error) {
-        throw new CustomError("Error creating category", 500); // Throw a custom error
+        throw new CustomError("Error creating category", 500);
       }
       throw new CustomError("An unexpected error occurred", 500); // Fallback for unexpected errors
     }
@@ -41,7 +41,6 @@ export class CategoryController {
         data: categories,
       });
     } catch (error) {
-      // Use CustomError to throw the error
       throw new CustomError("Error fetching categories", 500);
     }
   }
@@ -64,7 +63,6 @@ export class CategoryController {
         });
       }
     } catch (error) {
-      // Use CustomError to throw the error
       throw new CustomError("Error fetching category", 500);
     }
   }
@@ -91,7 +89,6 @@ export class CategoryController {
         data: updatedCategory,
       });
     } catch (error) {
-      // Use CustomError to throw the error
       throw new CustomError("Error updating category", 500);
     }
   }
@@ -110,7 +107,6 @@ export class CategoryController {
         message: "Category deleted successfully",
       });
     } catch (error) {
-      // Use CustomError to throw the error
       throw new CustomError("Error deleting category", 500);
     }
   }
