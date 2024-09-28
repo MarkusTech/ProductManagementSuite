@@ -1,5 +1,3 @@
-// controllers/CategoryController.ts
-
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { CustomError } from "../utils/CustomError"; // Import the CustomError class
