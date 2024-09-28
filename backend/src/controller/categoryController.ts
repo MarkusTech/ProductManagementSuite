@@ -24,9 +24,11 @@ export class CategoryController {
         message: "Category created successfully",
         data: newCategory,
       });
-    } catch (error) {
-      // Use CustomError to throw the error
-      throw new CustomError("Error creating category", 500);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new CustomError("Error creating category", 500); // Throw a custom error
+      }
+      throw new CustomError("An unexpected error occurred", 500); // Fallback for unexpected errors
     }
   }
 
