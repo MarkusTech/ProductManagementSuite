@@ -1,0 +1,135 @@
+// This is your Prisma schema file
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userID       Int        @id @default(autoincrement())
+  username     String     @unique
+  email        String     @unique
+  password     String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  items        Item[]     @relation("UserItems") // Relation to items created by this user
+  inventories   Inventory[] @relation("UserInventories") // Relation to inventories created by this user
+}
+
+model Category {
+  categoryID    Int       @id @default(autoincrement())
+  categoryCode  String    @unique
+  name          String
+  description   String?
+  status        Boolean    @default(true)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  items         Item[]    @relation("CategoryItems") // Relation to items in this category
+}
+
+model Location {
+  locationID    Int       @id @default(autoincrement())
+  locationName  String
+  description   String?
+  status        Boolean    @default(true)
+  createdByID   Int       // Assuming this links to a User who created this location
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  items         Item[]    @relation("LocationItems") // Relation to items in this location
+}
+
+model Supplier {
+  supplierID    Int       @id @default(autoincrement())
+  supplierName  String
+  description   String?
+  status        Boolean    @default(true)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  items         Item[]    @relation("SupplierItems") // Relation to items supplied by this supplier
+}
+
+model Item {
+  itemID        Int       @id @default(autoincrement()) 
+  itemCode      String    @unique
+  categoryID    Int
+  locationID    Int
+  supplierID    Int
+  sku           String
+  barcode       String
+  itemName      String
+  description   String?
+  diff1         String?
+  diff2         String?
+  uom           String
+  price         Float
+  cost          Float
+  image_url     String?
+  createdByID   Int       // Creator of this item
+  modifiedByID  Int?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  category      Category   @relation("CategoryItems", fields: [categoryID], references: [categoryID])
+  location      Location   @relation("LocationItems", fields: [locationID], references: [locationID])
+  supplier      Supplier   @relation("SupplierItems", fields: [supplierID], references: [supplierID])
+  user          User       @relation("UserItems", fields: [createdByID], references: [userID])
+}
+
+model Inventory {
+  inventoryID    Int       @id @default(autoincrement())
+  itemID         Int
+  quantity       Int
+  locationID     Int
+  userID         Int
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Relations
+  item           Item       @relation(fields: [itemID], references: [itemID])
+  location       Location   @relation(fields: [locationID], references: [locationID])
+  user           User       @relation("UserInventories", fields: [userID], references: [userID])
+}
+
+model InventoryType {
+  inventoryTypeID Int       @id @default(autoincrement())
+  typeName        String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  inventories     Inventory[] // Relation to inventories
+}
+
+model InventoryAdjustment {
+  adjustmentID        Int       @id @default(autoincrement())
+  inventoryID         Int
+  adjustmentTypeID    Int
+  adjustmentReasonID   Int
+  quantityAdjusted     Int
+  adjustmentDate      DateTime  @default(now())
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  // Relations
+  inventory          Inventory       @relation(fields: [inventoryID], references: [inventoryID])
+  adjustmentType     AdjustmentType   @relation(fields: [adjustmentTypeID], references: [adjustmentTypeID])
+  adjustmentReason   AdjustmentReason  @relation(fields: [adjustmentReasonID], references: [adjustmentReasonID])
+}
+
+model AdjustmentType {
+  adjustmentTypeID   Int       @id @default(autoincrement())
+  typeName           String
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  adjustments        InventoryAdjustment[] // Relation to adjustments
+}
+
+model AdjustmentReason {
+  adjustmentReasonID Int       @id @default(autoincrement())
+  reasonName         String
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  adjustments        InventoryAdjustment[] // Relation to adjustments
+}
