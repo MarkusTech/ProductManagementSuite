@@ -1,5 +1,3 @@
-# WMR Backend With Expressjs and Mysql Template
-
 # 3rd Party Libraries
 
 - Cors
@@ -23,3 +21,6 @@
 # Fake data
 
 - npm run seed
+
+# To run
+- npm run dev
