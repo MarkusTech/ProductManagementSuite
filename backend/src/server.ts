@@ -14,7 +14,7 @@ import passport from "passport";
 import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/user.routes";
 import categoryRoutes from "./routes/category.routes";
-// import supplierRoutes from "./routes/suppler.routes";
+import supplierRoutes from "./routes/suppler.routes";
 // import locationRoutes from "./routes/location.routes";
 // import itemRoutes from "./routes/item.routes";
 
@@ -66,7 +66,7 @@ app.use(passport.initialize());
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", categoryRoutes);
-// app.use("/api/v1/suppliers", supplierRoutes);
+app.use("/api/v1/suppliers", supplierRoutes);
 // app.use("/api/v1/locations", locationRoutes);
 // app.use("/api/v1/items", itemRoutes);
 

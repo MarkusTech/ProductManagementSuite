@@ -7,17 +7,14 @@ const prisma = new PrismaClient();
 export class SupplierController {
   // Create a new supplier
   async createSupplier(req: Request, res: Response): Promise<void> {
-    const { supplierName, description, status, createdByID, modifiedByID } =
-      req.body;
+    const { supplierName, description, status } = req.body;
 
     try {
-      const newSupplier = await prisma.supplier.create({
+      const newSupplier = await prisma.suppliers.create({
         data: {
           supplierName,
           description,
           status,
-          createdByID,
-          modifiedByID,
         },
       });
 
@@ -37,24 +34,23 @@ export class SupplierController {
   // Get all suppliers
   async getAllSuppliers(req: Request, res: Response): Promise<void> {
     try {
-      const suppliers = await prisma.supplier.findMany();
+      const suppliers = await prisma.suppliers.findMany();
       res.status(200).json({
         success: true,
         data: suppliers,
       });
     } catch (error) {
-      console.error(error);
       throw new CustomError("Error fetching suppliers", 500);
     }
   }
 
   // Get supplier by ID
   async getSupplierById(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const { supplierID } = req.params;
 
     try {
-      const supplier = await prisma.supplier.findUnique({
-        where: { supplierID: parseInt(id) },
+      const supplier = await prisma.suppliers.findUnique({
+        where: { supplierID: parseInt(supplierID) },
       });
 
       if (!supplier) {
@@ -66,24 +62,22 @@ export class SupplierController {
         });
       }
     } catch (error) {
-      console.error(error);
       throw new CustomError("Error fetching supplier", 500);
     }
   }
 
   // Update supplier
   async updateSupplier(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
-    const { supplierName, description, status, modifiedByID } = req.body;
+    const { supplierID } = req.params;
+    const { supplierName, description, status } = req.body;
 
     try {
-      const updatedSupplier = await prisma.supplier.update({
-        where: { supplierID: parseInt(id) },
+      const updatedSupplier = await prisma.suppliers.update({
+        where: { supplierID: parseInt(supplierID) },
         data: {
           supplierName,
           description,
           status,
-          modifiedByID,
         },
       });
 
@@ -93,18 +87,17 @@ export class SupplierController {
         data: updatedSupplier,
       });
     } catch (error) {
-      console.error(error);
       throw new CustomError("Error updating supplier", 500);
     }
   }
 
   // Delete supplier
   async deleteSupplier(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const { supplierID } = req.params;
 
     try {
-      await prisma.supplier.delete({
-        where: { supplierID: parseInt(id) },
+      await prisma.suppliers.delete({
+        where: { supplierID: parseInt(supplierID) },
       });
 
       res.status(200).json({
@@ -112,7 +105,6 @@ export class SupplierController {
         message: "Supplier deleted successfully",
       });
     } catch (error) {
-      console.error(error);
       throw new CustomError("Error deleting supplier", 500);
     }
   }
