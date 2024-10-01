@@ -68,12 +68,12 @@ app.post(
 app.use(passport.initialize());
 
 // API
+app.use("/api/v1", authRoutes);
+app.use("/api/v1", userRoutes);
 // app.use("/api/v1", categoryRoutes);
 // app.use("/api/v1/suppliers", supplierRoutes);
 // app.use("/api/v1/locations", locationRoutes);
 // app.use("/api/v1/items", itemRoutes);
-app.use("/api/v1", authRoutes);
-app.use("/api/v1", userRoutes);
 
 // Error Handling Middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
