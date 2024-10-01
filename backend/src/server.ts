@@ -66,7 +66,7 @@ app.use(passport.initialize());
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", categoryRoutes);
-app.use("/api/v1/suppliers", supplierRoutes);
+app.use("/api/v1", supplierRoutes);
 // app.use("/api/v1/locations", locationRoutes);
 // app.use("/api/v1/items", itemRoutes);
 
