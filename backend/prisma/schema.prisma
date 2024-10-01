@@ -1,6 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
+// This is your Prisma schema file
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,71 +8,155 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Users {
+  userID       Int      @id @default(autoincrement())
+  firstName    String
+  middleName   String
+  lastName     String
+  roleID       Int
+  username     String   @unique
+  email        String   @unique
+  password     String
+  phoneNumber  String
+  address      String
+  birthday     String
+  status       Boolean  @default(true)
+  image_url    String
+  createdByID  Int
+  modifiedByID Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // items        Item[]     @relation("UserItems") // Relation to items created by this user
+  // inventories   Inventory[] @relation("UserInventories") // Relation to inventories created by this user
 }
 
-model Category {
-  id          Int      @id @default(autoincrement())
-  categoryCode String
-  name        String
-  description String?
-  status      Boolean
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Categories {
+  categoryID   Int      @id @default(autoincrement())
+  categoryCode String   @unique
+  categoryName String
+  description  String?
+  status       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // items         Item[]    @relation("CategoryItems") // Relation to items in this category
 }
 
-model Supplier {
-  supplierID    Int      @id @default(autoincrement())
-  supplierName  String
-  description   String?
-  status        Boolean  @default(true)
-  createdByID   Int
-  modifiedByID  Int?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+model Locations {
+  locationID   Int      @id @default(autoincrement())
+  locationName String
+  description  String?
+  status       Boolean  @default(true)
+  createdByID  Int
+  modifiedByID Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // items         Item[]    @relation("LocationItems") // Relation to items in this location
 }
 
-model Location {
-  locationID    Int      @id @default(autoincrement()) 
-  locationName  String                               
-  description   String?                              
-  status        Boolean   @default(true)              
-  createdByID   Int                                   
-  modifiedByID  Int?                                  
-  createdAt     DateTime  @default(now())             
-  updatedAt     DateTime  @updatedAt 
+model Suppliers {
+  supplierID   Int      @id @default(autoincrement())
+  supplierName String
+  description  String?
+  status       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // items         Item[]    @relation("SupplierItems") // Relation to items supplied by this supplier
 }
 
-model Item {
-  itemID       Int      @id @default(autoincrement()) // Primary key with auto-increment
-  itemCode     String                                 // Unique item code
-  categoryID   Int                                    // Foreign key to Category
-  locationID   Int                                    // Foreign key to Location
-  sku          String                                 // SKU (Stock Keeping Unit) of the item
-  barcode      String                                 // Barcode for the item
-  itemName     String                                 // Name of the item
-  description  String?                                // Optional description of the item
-  diff1        String?                                // Optional differentiation field 1
-  diff2        String?                                // Optional differentiation field 2
-  uom          String                                 // Unit of measure for the item
-  price        Float                                  // Price of the item
-  cost         Float                                  // Cost of the item
-  image_url   String?                                 // Optional path to the image of the item
-  createdByID  Int                                    // Foreign key to User (who created the item)
-  modifiedByID Int?                                   // Foreign key to User (who last modified the item)
-  createdAt    DateTime  @default(now())              // Timestamp when the item was created
-  updatedAt    DateTime  @updatedAt                   // Timestamp when the item was last updated
+model Items {
+  itemID       Int      @id @default(autoincrement())
+  itemCode     String   @unique
+  categoryID   Int
+  barcode      String
+  itemName     String
+  description  String?
+  grams        Float
+  uom          String
+  price        Float
+  cost         Float
+  image_url    String?
+  createdByID  Int // Creator of this item
+  modifiedByID Int?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  status       Boolean  @default(true)
 
-  // Foreign key relations
-  // category     Category  @relation(fields: [categoryID], references: [categoryID])
-  // location     Location  @relation(fields: [locationID], references: [locationID])
-  // createdBy    User      @relation(fields: [createdByID], references: [id])
-  // modifiedBy   User?     @relation(fields: [modifiedByID], references: [id])
+  // Relations
+  // category      Category   @relation("CategoryItems", fields: [categoryID], references: [categoryID])
+  // location      Location   @relation("LocationItems", fields: [locationID], references: [locationID])
+  // supplier      Supplier   @relation("SupplierItems", fields: [supplierID], references: [supplierID])
+  // user          User       @relation("UserItems", fields: [createdByID], references: [userID])
+}
 
-  @@unique([itemCode]) // Ensures itemCode is unique
+model Inventory {
+  inventoryID      Int      @id @default(autoincrement())
+  locationID       Int
+  itemID           Int
+  quantity         Int
+  inventoryTypeID  Int
+  reOrderThreshold String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  // item           Item       @relation(fields: [itemID], references: [itemID])
+  // location       Location   @relation(fields: [locationID], references: [locationID])
+  // user           User       @relation("UserInventories", fields: [userID], references: [userID])
+}
+
+model InventoryType {
+  inventoryTypeID Int      @id @default(autoincrement())
+  typeName        String
+  description     String
+  status          Boolean  @default(true)
+  createdByID     Int
+  modifiedByID    Int?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // inventories     Inventory[] // Relation to inventories
+}
+
+model InventoryAdjustment {
+  adjustmentID       Int      @id @default(autoincrement())
+  inventoryID        Int
+  adjustmentTypeID   Int
+  adjustmentReasonID Int
+  quantityAdjusted   Int
+  status             String
+  createdByID        Int
+  modifiedByID       Int?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  // Relations
+  // inventory          Inventory       @relation(fields: [inventoryID], references: [inventoryID])
+  // adjustmentType     AdjustmentType   @relation(fields: [adjustmentTypeID], references: [adjustmentTypeID])
+  // adjustmentReason   AdjustmentReason  @relation(fields: [adjustmentReasonID], references: [adjustmentReasonID])
+}
+
+model AdjustmentType {
+  adjustmentTypeID Int      @id @default(autoincrement())
+  typeName         String
+  createdByID      Int
+  modifiedByID     Int?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // adjustments        InventoryAdjustment[] // Relation to adjustments
+}
+
+model AdjustmentReason {
+  adjustmentReasonID Int      @id @default(autoincrement())
+  reasonName         String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  createdByID        Int
+  modifiedByID       Int?
+
+  // adjustments        InventoryAdjustment[] // Relation to adjustments
 }
