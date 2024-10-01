@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { LocationController } from "../controller/locationController";
+import { LocationController } from "../controller/item_locationController";
 import { verifyToken } from "../middlewares/authMiddlewares";
 
 const router = Router();

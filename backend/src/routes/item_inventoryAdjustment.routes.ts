@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { InventoryAdjustmentController } from "../controller/inventoryAdjustmentController";
+import { InventoryAdjustmentController } from "../controller/item_inventoryAdjustmentController";
 import { verifyToken } from "../middlewares/authMiddlewares";
 
 const router = Router();

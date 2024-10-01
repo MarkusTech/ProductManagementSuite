@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { SupplierController } from "../controller/supplierController";
+import { SupplierController } from "../controller/item_supplierController";
 import { verifyToken } from "../middlewares/authMiddlewares";
 const router = Router();
 const supplierController = new SupplierController();

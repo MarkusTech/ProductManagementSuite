@@ -12,15 +12,15 @@ import passport from "passport";
 // routes
 import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/user.routes";
-import categoryRoutes from "./routes/category.routes";
-import supplierRoutes from "./routes/suppler.routes";
-import locationRoutes from "./routes/location.routes";
-import itemRoutes from "./routes/item.routes";
-import inventoryRoutes from "./routes/inventory.routes";
-import inventoryTypeRoutes from "./routes/inventoryType.routes";
-import inventoryAdjustmentRoutes from "./routes/inventoryAdjustment.routes";
-import adjustmentTypeRoutes from "./routes/adjustmentType.routes";
-import adjustmentReasonRoutes from "./routes/adjustmentReason.routes";
+import categoryRoutes from "./routes/item_category.routes";
+import supplierRoutes from "./routes/item_supplier.routes";
+import locationRoutes from "./routes/item_location.routes";
+import itemRoutes from "./routes/item_item.routes";
+import inventoryRoutes from "./routes/item_inventory.routes";
+import inventoryTypeRoutes from "./routes/item_inventoryType.routes";
+import inventoryAdjustmentRoutes from "./routes/item_inventoryAdjustment.routes";
+import adjustmentTypeRoutes from "./routes/item_adjustmentType.routes";
+import adjustmentReasonRoutes from "./routes/item_adjustmentReason.routes";
 
 // Initialize express app
 const app = express();
