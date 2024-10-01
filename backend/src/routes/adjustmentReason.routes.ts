@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AdjustmentReasonController } from "../controller/adjustmentReasonController";
+import { AdjustmentReasonController } from "../controller/item_adjustmentReasonController";
 import { verifyToken } from "../middlewares/authMiddlewares";
 
 const router = Router();
