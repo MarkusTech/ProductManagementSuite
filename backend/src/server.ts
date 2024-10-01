@@ -11,10 +11,12 @@ import { body, validationResult } from "express-validator";
 import passport from "passport";
 
 // routes
-import categoryRoutes from "./routes/category.routes";
-import supplierRoutes from "./routes/suppler.routes";
-import locationRoutes from "./routes/location.routes";
-import itemRoutes from "./routes/item.routes";
+// import categoryRoutes from "./routes/category.routes";
+// import supplierRoutes from "./routes/suppler.routes";
+// import locationRoutes from "./routes/location.routes";
+// import itemRoutes from "./routes/item.routes";
+import authRoutes from "./routes/auth.routes";
+import userRoutes from "./routes/user.routes";
 
 // Initialize express app
 const app = express();
@@ -66,10 +68,12 @@ app.post(
 app.use(passport.initialize());
 
 // API
-app.use("/api/v1", categoryRoutes);
-app.use("/api/v1/suppliers", supplierRoutes);
-app.use("/api/v1/locations", locationRoutes);
-app.use("/api/v1/items", itemRoutes);
+// app.use("/api/v1", categoryRoutes);
+// app.use("/api/v1/suppliers", supplierRoutes);
+// app.use("/api/v1/locations", locationRoutes);
+// app.use("/api/v1/items", itemRoutes);
+app.use("/api/v1", authRoutes);
+app.use("/api/v1", userRoutes);
 
 // Error Handling Middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
