@@ -9,7 +9,7 @@ import rateLimit from "express-rate-limit";
 import "colors";
 import passport from "passport";
 
-// routes
+// Inventory Item Routes
 import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/user.routes";
 import categoryRoutes from "./routes/item_category.routes";
@@ -21,6 +21,9 @@ import inventoryTypeRoutes from "./routes/item_inventoryType.routes";
 import inventoryAdjustmentRoutes from "./routes/item_inventoryAdjustment.routes";
 import adjustmentTypeRoutes from "./routes/item_adjustmentType.routes";
 import adjustmentReasonRoutes from "./routes/item_adjustmentReason.routes";
+
+// Purchase Order Routes
+import purchaseOrderRoutes from "./routes/po_purchaseOrder.routes";
 
 // Initialize express app
 const app = express();
@@ -66,7 +69,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 // Passport for authentication
 app.use(passport.initialize());
 
-// API
+// Inventory Item API
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", categoryRoutes);
@@ -78,6 +81,9 @@ app.use("/api/v1", inventoryTypeRoutes);
 app.use("/api/v1", inventoryAdjustmentRoutes);
 app.use("/api/v1", adjustmentTypeRoutes);
 app.use("/api/v1", adjustmentReasonRoutes);
+
+// purchase order API
+app.use("/api/v2", purchaseOrderRoutes);
 
 // Error Handling Middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
