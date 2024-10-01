@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node dist/app.js",
     "build": "tsc",
-    "dev": "nodemon src/server.ts"
+    "dev": "nodemon src/server.ts",
+    "seed": "ts-node prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
