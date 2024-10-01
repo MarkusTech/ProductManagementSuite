@@ -7,7 +7,6 @@ import multer from "multer";
 import compression from "compression";
 import rateLimit from "express-rate-limit";
 import "colors";
-import { body, validationResult } from "express-validator";
 import passport from "passport";
 
 // routes
