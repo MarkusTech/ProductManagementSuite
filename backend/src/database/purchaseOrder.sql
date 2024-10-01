@@ -40,7 +40,6 @@ model PurchaseOrderItem {
   item          Items         @relation(fields: [itemID], references: [itemID])
 }
 
-
 model poReceivingItem {
   poReceivingItemID Int      @id @default(autoincrement())
   itemID            Int
