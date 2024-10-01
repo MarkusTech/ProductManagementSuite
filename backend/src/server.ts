@@ -24,6 +24,7 @@ import adjustmentReasonRoutes from "./routes/item_adjustmentReason.routes";
 
 // Purchase Order Routes
 import purchaseOrderRoutes from "./routes/po_purchaseOrder.routes";
+import purchaseOrderItemRoutes from "./routes/po_purchaseOrderItem.routes";
 
 // Initialize express app
 const app = express();
@@ -84,6 +85,7 @@ app.use("/api/v1", adjustmentReasonRoutes);
 
 // purchase order API
 app.use("/api/v2", purchaseOrderRoutes);
+app.use("/api/v2", purchaseOrderItemRoutes);
 
 // Error Handling Middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
