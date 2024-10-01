@@ -9,26 +9,26 @@ router.post(
   "/adjustment-type",
   verifyToken,
   adjustmentTypeController.createAdjustmentType
-); // Create a new AdjustmentType
+);
 router.get(
   "/adjustment-type",
   verifyToken,
   adjustmentTypeController.getAllAdjustmentTypes
-); // Get all AdjustmentTypes
+);
 router.get(
   "/adjustment-type/:adjustmentTypeID",
   verifyToken,
   adjustmentTypeController.getAdjustmentTypeById
-); // Get AdjustmentType by ID
+);
 router.put(
   "/adjustment-type/:adjustmentTypeID",
   verifyToken,
   adjustmentTypeController.updateAdjustmentType
-); // Update AdjustmentType
+);
 router.delete(
   "/adjustment-type/:adjustmentTypeID",
   verifyToken,
   adjustmentTypeController.deleteAdjustmentType
-); // Delete AdjustmentType
+);
 
 export default router;
