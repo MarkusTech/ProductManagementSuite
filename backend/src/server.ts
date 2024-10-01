@@ -26,6 +26,7 @@ import adjustmentReasonRoutes from "./routes/item_adjustmentReason.routes";
 import purchaseOrderRoutes from "./routes/po_purchaseOrder.routes";
 import purchaseOrderItemRoutes from "./routes/po_purchaseOrderItem.routes";
 import poReceivingItemRoutes from "./routes/po_poReceivingItem.routes";
+import poReceivingRoutes from "./routes/po_poReceiving.routes";
 
 // Initialize express app
 const app = express();
@@ -88,6 +89,7 @@ app.use("/api/v1", adjustmentReasonRoutes);
 app.use("/api/v2", purchaseOrderRoutes);
 app.use("/api/v2", purchaseOrderItemRoutes);
 app.use("/api/v2", poReceivingItemRoutes);
+app.use("/api/v2", poReceivingRoutes);
 
 // Error Handling Middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
