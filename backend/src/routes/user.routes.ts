@@ -7,9 +7,9 @@ const userController = new UserController();
 
 router.post("/users", userController.createUser);
 
-router.get("/users", verifyToken, userController.getAllUsers); // Get all users
-router.get("/users/:userID", verifyToken, userController.getUserById); // Get a user by ID
-router.put("/users/:userID", verifyToken, userController.updateUser); // Update user details
-router.delete("/users/:userID", verifyToken, userController.deleteUser); // Delete a user
+router.get("/users", verifyToken, userController.getAllUsers);
+router.get("/users/:userID", verifyToken, userController.getUserById);
+router.put("/users/:userID", verifyToken, userController.updateUser);
+router.delete("/users/:userID", verifyToken, userController.deleteUser);
 
 export default router;
