@@ -10,13 +10,10 @@ export class ItemController {
     const {
       itemCode,
       categoryID,
-      locationID,
-      sku,
       barcode,
       itemName,
       description,
-      diff1,
-      diff2,
+      grams,
       uom,
       price,
       cost,
@@ -26,17 +23,14 @@ export class ItemController {
     } = req.body;
 
     try {
-      const newItem = await prisma.item.create({
+      const newItem = await prisma.items.create({
         data: {
           itemCode,
           categoryID,
-          locationID,
-          sku,
           barcode,
           itemName,
           description,
-          diff1,
-          diff2,
+          grams,
           uom,
           price,
           cost,
@@ -51,39 +45,38 @@ export class ItemController {
         message: "Item created successfully",
         data: newItem,
       });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        throw new CustomError("Error creating item", 500);
-      }
-      throw new CustomError("An unexpected error occurred", 500);
+    } catch (error) {
+      throw new CustomError("Error creating item", 500);
     }
   }
 
   // Get all items
   async getAllItems(req: Request, res: Response): Promise<void> {
     try {
-      const items = await prisma.item.findMany();
+      const items = await prisma.items.findMany();
       res.status(200).json({
         success: true,
         data: items,
       });
     } catch (error) {
-      console.error(error);
       throw new CustomError("Error fetching items", 500);
     }
   }
 
   // Get item by ID
   async getItemById(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const { itemID } = req.params;
 
     try {
-      const item = await prisma.item.findUnique({
-        where: { itemID: parseInt(id) },
+      const item = await prisma.items.findUnique({
+        where: { itemID: parseInt(itemID) },
       });
 
       if (!item) {
-        throw new CustomError("Item not found", 404);
+        res.status(404).json({
+          success: false,
+          message: "Item not found",
+        });
       } else {
         res.status(200).json({
           success: true,
@@ -91,49 +84,44 @@ export class ItemController {
         });
       }
     } catch (error) {
-      console.error(error);
       throw new CustomError("Error fetching item", 500);
     }
   }
 
   // Update item
   async updateItem(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const { itemID } = req.params;
     const {
       itemCode,
       categoryID,
-      locationID,
-      sku,
       barcode,
       itemName,
       description,
-      diff1,
-      diff2,
+      grams,
       uom,
       price,
       cost,
       image_url,
       modifiedByID,
+      status,
     } = req.body;
 
     try {
-      const updatedItem = await prisma.item.update({
-        where: { itemID: parseInt(id) },
+      const updatedItem = await prisma.items.update({
+        where: { itemID: parseInt(itemID) },
         data: {
           itemCode,
           categoryID,
-          locationID,
-          sku,
           barcode,
           itemName,
           description,
-          diff1,
-          diff2,
+          grams,
           uom,
           price,
           cost,
           image_url,
           modifiedByID,
+          status,
         },
       });
 
@@ -143,18 +131,17 @@ export class ItemController {
         data: updatedItem,
       });
     } catch (error) {
-      console.error(error);
       throw new CustomError("Error updating item", 500);
     }
   }
 
   // Delete item
   async deleteItem(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const { itemID } = req.params;
 
     try {
-      await prisma.item.delete({
-        where: { itemID: parseInt(id) },
+      await prisma.items.delete({
+        where: { itemID: parseInt(itemID) },
       });
 
       res.status(200).json({
@@ -162,7 +149,6 @@ export class ItemController {
         message: "Item deleted successfully",
       });
     } catch (error) {
-      console.error(error);
       throw new CustomError("Error deleting item", 500);
     }
   }
