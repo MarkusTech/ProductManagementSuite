@@ -1,17 +1,26 @@
 import { Router } from "express";
 import { LocationController } from "../controller/locationController";
+import { verifyToken } from "../middlewares/authMiddlewares";
 
 const router = Router();
 const locationController = new LocationController();
 
-// Define routes for locations
-router.post("/", locationController.createLocation.bind(locationController));
-router.get("/", locationController.getAllLocations.bind(locationController));
-router.get("/:id", locationController.getLocationById.bind(locationController));
-router.put("/:id", locationController.updateLocation.bind(locationController));
+router.post("/locations", verifyToken, locationController.createLocation);
+router.get("/locations", verifyToken, locationController.getAllLocations);
+router.get(
+  "/locations/:locationID",
+  verifyToken,
+  locationController.getLocationById
+);
+router.put(
+  "/locations/:locationID",
+  verifyToken,
+  locationController.updateLocation
+);
 router.delete(
-  "/:id",
-  locationController.deleteLocation.bind(locationController)
+  "/locations/:locationID",
+  verifyToken,
+  locationController.deleteLocation
 );
 
 export default router;

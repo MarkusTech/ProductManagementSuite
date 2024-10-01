@@ -7,15 +7,13 @@ const prisma = new PrismaClient();
 export class LocationController {
   // Create a new location
   async createLocation(req: Request, res: Response): Promise<void> {
-    const { locationName, description, status, createdByID, modifiedByID } =
-      req.body;
+    const { locationName, description, createdByID, modifiedByID } = req.body;
 
     try {
-      const newLocation = await prisma.location.create({
+      const newLocation = await prisma.locations.create({
         data: {
           locationName,
           description,
-          status,
           createdByID,
           modifiedByID,
         },
@@ -26,39 +24,38 @@ export class LocationController {
         message: "Location created successfully",
         data: newLocation,
       });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        throw new CustomError("Error creating location", 500);
-      }
-      throw new CustomError("An unexpected error occurred", 500);
+    } catch (error) {
+      throw new CustomError("Error creating location", 500);
     }
   }
 
   // Get all locations
   async getAllLocations(req: Request, res: Response): Promise<void> {
     try {
-      const locations = await prisma.location.findMany();
+      const locations = await prisma.locations.findMany();
       res.status(200).json({
         success: true,
         data: locations,
       });
     } catch (error) {
-      console.error(error);
       throw new CustomError("Error fetching locations", 500);
     }
   }
 
   // Get location by ID
   async getLocationById(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const { locationID } = req.params;
 
     try {
-      const location = await prisma.location.findUnique({
-        where: { locationID: parseInt(id) },
+      const location = await prisma.locations.findUnique({
+        where: { locationID: parseInt(locationID) },
       });
 
       if (!location) {
-        throw new CustomError("Location not found", 404);
+        res.status(404).json({
+          success: false,
+          message: "Location not found",
+        });
       } else {
         res.status(200).json({
           success: true,
@@ -66,24 +63,23 @@ export class LocationController {
         });
       }
     } catch (error) {
-      console.error(error);
       throw new CustomError("Error fetching location", 500);
     }
   }
 
   // Update location
   async updateLocation(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
-    const { locationName, description, status, modifiedByID } = req.body;
+    const { locationID } = req.params;
+    const { locationName, description, modifiedByID, status } = req.body;
 
     try {
-      const updatedLocation = await prisma.location.update({
-        where: { locationID: parseInt(id) },
+      const updatedLocation = await prisma.locations.update({
+        where: { locationID: parseInt(locationID) },
         data: {
           locationName,
           description,
-          status,
           modifiedByID,
+          status,
         },
       });
 
@@ -93,18 +89,17 @@ export class LocationController {
         data: updatedLocation,
       });
     } catch (error) {
-      console.error(error);
       throw new CustomError("Error updating location", 500);
     }
   }
 
   // Delete location
   async deleteLocation(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const { locationID } = req.params;
 
     try {
-      await prisma.location.delete({
-        where: { locationID: parseInt(id) },
+      await prisma.locations.delete({
+        where: { locationID: parseInt(locationID) },
       });
 
       res.status(200).json({
@@ -112,7 +107,6 @@ export class LocationController {
         message: "Location deleted successfully",
       });
     } catch (error) {
-      console.error(error);
       throw new CustomError("Error deleting location", 500);
     }
   }

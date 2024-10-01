@@ -1,14 +1,14 @@
 import { Router } from "express";
 import { ItemController } from "../controller/itemController";
+import { verifyToken } from "../middlewares/authMiddlewares";
 
 const router = Router();
 const itemController = new ItemController();
 
-// Define routes for items
-router.post("/", itemController.createItem.bind(itemController));
-router.get("/", itemController.getAllItems.bind(itemController));
-router.get("/:id", itemController.getItemById.bind(itemController));
-router.put("/:id", itemController.updateItem.bind(itemController));
-router.delete("/:id", itemController.deleteItem.bind(itemController));
+router.post("/items", verifyToken, itemController.createItem); // Create new item
+router.get("/items", verifyToken, itemController.getAllItems); // Get all items
+router.get("/items/:itemID", verifyToken, itemController.getItemById); // Get item by ID
+router.put("/items/:itemID", verifyToken, itemController.updateItem); // Update item
+router.delete("/items/:itemID", verifyToken, itemController.deleteItem); // Delete item
 
 export default router;

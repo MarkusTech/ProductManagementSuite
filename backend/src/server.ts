@@ -15,8 +15,8 @@ import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/user.routes";
 import categoryRoutes from "./routes/category.routes";
 import supplierRoutes from "./routes/suppler.routes";
-// import locationRoutes from "./routes/location.routes";
-// import itemRoutes from "./routes/item.routes";
+import locationRoutes from "./routes/location.routes";
+import itemRoutes from "./routes/item.routes";
 
 // Initialize express app
 const app = express();
@@ -67,8 +67,8 @@ app.use("/api/v1", authRoutes);
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", categoryRoutes);
 app.use("/api/v1", supplierRoutes);
-// app.use("/api/v1/locations", locationRoutes);
-// app.use("/api/v1/items", itemRoutes);
+app.use("/api/v1", locationRoutes);
+app.use("/api/v1", itemRoutes);
 
 // Error Handling Middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
