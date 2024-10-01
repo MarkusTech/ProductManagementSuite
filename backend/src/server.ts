@@ -25,7 +25,7 @@ import adjustmentReasonRoutes from "./routes/item_adjustmentReason.routes";
 // Purchase Order Routes
 import purchaseOrderRoutes from "./routes/po_purchaseOrder.routes";
 import purchaseOrderItemRoutes from "./routes/po_purchaseOrderItem.routes";
-import poReceivingRoutes from "./routes/po_poReceiving.routes";
+import poReceivingRoutes from "./routes/po_poReceivingItem.routes";
 
 // Initialize express app
 const app = express();

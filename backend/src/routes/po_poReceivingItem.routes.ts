@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { PoReceivingItemController } from "../controller/po_poReceivingController";
+import { PoReceivingItemController } from "../controller/po_poReceivingItemController";
 import { verifyToken } from "../middlewares/authMiddlewares";
 
 const router = Router();
