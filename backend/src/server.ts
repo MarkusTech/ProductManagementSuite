@@ -11,12 +11,12 @@ import { body, validationResult } from "express-validator";
 import passport from "passport";
 
 // routes
-// import categoryRoutes from "./routes/category.routes";
+import authRoutes from "./routes/auth.routes";
+import userRoutes from "./routes/user.routes";
+import categoryRoutes from "./routes/category.routes";
 // import supplierRoutes from "./routes/suppler.routes";
 // import locationRoutes from "./routes/location.routes";
 // import itemRoutes from "./routes/item.routes";
-import authRoutes from "./routes/auth.routes";
-import userRoutes from "./routes/user.routes";
 
 // Initialize express app
 const app = express();
@@ -51,18 +51,13 @@ app.post("/upload", upload.single("file"), (req: Request, res: Response) => {
   res.send("File uploaded successfully.");
 });
 
-// Express Validator for input validation
-app.post(
-  "/user",
-  [body("email").isEmail(), body("password").isLength({ min: 5 })],
-  (req: Request, res: Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    res.send("User is valid");
-  }
-);
+// Error handling middleware
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  console.error(err);
+  res
+    .status(err.status || 500)
+    .json({ error: err.message || "Internal Server Error" });
+});
 
 // Passport for authentication
 app.use(passport.initialize());
@@ -70,7 +65,7 @@ app.use(passport.initialize());
 // API
 app.use("/api/v1", authRoutes);
 app.use("/api/v1", userRoutes);
-// app.use("/api/v1", categoryRoutes);
+app.use("/api/v1", categoryRoutes);
 // app.use("/api/v1/suppliers", supplierRoutes);
 // app.use("/api/v1/locations", locationRoutes);
 // app.use("/api/v1/items", itemRoutes);

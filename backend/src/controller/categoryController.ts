@@ -7,13 +7,13 @@ const prisma = new PrismaClient();
 export class CategoryController {
   // Create a new category
   async createCategory(req: Request, res: Response): Promise<void> {
-    const { categoryCode, name, description, status } = req.body;
+    const { categoryCode, categoryName, description, status } = req.body;
 
     try {
-      const newCategory = await prisma.category.create({
+      const newCategory = await prisma.categories.create({
         data: {
           categoryCode,
-          name,
+          categoryName,
           description,
           status,
         },
@@ -28,14 +28,14 @@ export class CategoryController {
       if (error instanceof Error) {
         throw new CustomError("Error creating category", 500);
       }
-      throw new CustomError("An unexpected error occurred", 500); // Fallback for unexpected errors
+      throw new CustomError("An unexpected error occurred", 500);
     }
   }
 
   // Get all categories
   async getAllCategories(req: Request, res: Response): Promise<void> {
     try {
-      const categories = await prisma.category.findMany();
+      const categories = await prisma.categories.findMany();
       res.status(200).json({
         success: true,
         data: categories,
@@ -47,11 +47,11 @@ export class CategoryController {
 
   // Get category by ID
   async getCategoryById(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const { categoryID } = req.params;
 
     try {
-      const category = await prisma.category.findUnique({
-        where: { id: parseInt(id) },
+      const category = await prisma.categories.findUnique({
+        where: { categoryID: parseInt(categoryID) },
       });
 
       if (!category) {
@@ -69,15 +69,15 @@ export class CategoryController {
 
   // Update category
   async updateCategory(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
-    const { categoryCode, name, description, status } = req.body;
+    const { categoryID } = req.params;
+    const { categoryCode, categoryName, description, status } = req.body;
 
     try {
-      const updatedCategory = await prisma.category.update({
-        where: { id: parseInt(id) },
+      const updatedCategory = await prisma.categories.update({
+        where: { categoryID: parseInt(categoryID) },
         data: {
           categoryCode,
-          name,
+          categoryName,
           description,
           status,
         },
@@ -95,11 +95,11 @@ export class CategoryController {
 
   // Delete category
   async deleteCategory(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const { categoryID } = req.params;
 
     try {
-      await prisma.category.delete({
-        where: { id: parseInt(id) },
+      await prisma.categories.delete({
+        where: { categoryID: parseInt(categoryID) },
       });
 
       res.status(200).json({
