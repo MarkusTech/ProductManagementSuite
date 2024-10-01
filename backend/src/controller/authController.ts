@@ -11,7 +11,6 @@ export class AuthController {
     const { username, password } = req.body;
 
     try {
-      // Find the user by username
       const user = await prisma.users.findUnique({
         where: { username },
       });
@@ -37,13 +36,16 @@ export class AuthController {
 
       res.status(200).json({ token });
     } catch (error) {
-      res.status(500).json({ error: "Login failed" });
+      console.error("Login error:", error);
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+      } else {
+        res.status(500).json({ error: "Login failed" });
+      }
     }
   }
 
-  // Logout method (stateless approach)
   logout(req: Request, res: Response): void {
-    // For a stateless JWT approach, just send a response indicating logout
     res.status(200).json({ message: "Logged out successfully" });
   }
 }
