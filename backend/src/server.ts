@@ -20,6 +20,7 @@ import itemRoutes from "./routes/item.routes";
 import inventoryRoutes from "./routes/inventory.routes";
 import inventoryTypeRoutes from "./routes/inventoryType.routes";
 import inventoryAdjustmentRoutes from "./routes/inventoryAdjustment.routes";
+import adjustmentTypeRoutes from "./routes/adjustmentType.routes";
 
 // Initialize express app
 const app = express();
@@ -75,6 +76,7 @@ app.use("/api/v1", itemRoutes);
 app.use("/api/v1", inventoryRoutes);
 app.use("/api/v1", inventoryTypeRoutes);
 app.use("/api/v1", inventoryAdjustmentRoutes);
+app.use("/api/v1", adjustmentTypeRoutes);
 
 // Error Handling Middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
