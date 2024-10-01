@@ -26,9 +26,6 @@ model Users {
   modifiedByID Int
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-
-  // items        Item[]     @relation("UserItems") // Relation to items created by this user
-  // inventories   Inventory[] @relation("UserInventories") // Relation to inventories created by this user
 }
 
 model Categories {
@@ -39,8 +36,6 @@ model Categories {
   status       Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-
-  // items         Item[]    @relation("CategoryItems") // Relation to items in this category
 }
 
 model Locations {
@@ -52,8 +47,6 @@ model Locations {
   modifiedByID Int
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-
-  // items         Item[]    @relation("LocationItems") // Relation to items in this location
 }
 
 model Suppliers {
@@ -63,8 +56,6 @@ model Suppliers {
   status       Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-
-  // items         Item[]    @relation("SupplierItems") // Relation to items supplied by this supplier
 }
 
 model Items {
@@ -84,12 +75,6 @@ model Items {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   status       Boolean  @default(true)
-
-  // Relations
-  // category      Category   @relation("CategoryItems", fields: [categoryID], references: [categoryID])
-  // location      Location   @relation("LocationItems", fields: [locationID], references: [locationID])
-  // supplier      Supplier   @relation("SupplierItems", fields: [supplierID], references: [supplierID])
-  // user          User       @relation("UserItems", fields: [createdByID], references: [userID])
 }
 
 model Inventory {
@@ -101,11 +86,6 @@ model Inventory {
   reOrderThreshold String
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
-
-  // Relations
-  // item           Item       @relation(fields: [itemID], references: [itemID])
-  // location       Location   @relation(fields: [locationID], references: [locationID])
-  // user           User       @relation("UserInventories", fields: [userID], references: [userID])
 }
 
 model InventoryType {
@@ -117,8 +97,6 @@ model InventoryType {
   modifiedByID    Int?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-
-  // inventories     Inventory[] // Relation to inventories
 }
 
 model InventoryAdjustment {
@@ -132,11 +110,6 @@ model InventoryAdjustment {
   modifiedByID       Int?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
-
-  // Relations
-  // inventory          Inventory       @relation(fields: [inventoryID], references: [inventoryID])
-  // adjustmentType     AdjustmentType   @relation(fields: [adjustmentTypeID], references: [adjustmentTypeID])
-  // adjustmentReason   AdjustmentReason  @relation(fields: [adjustmentReasonID], references: [adjustmentReasonID])
 }
 
 model AdjustmentType {
@@ -146,8 +119,6 @@ model AdjustmentType {
   modifiedByID     Int?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
-
-  // adjustments        InventoryAdjustment[] // Relation to adjustments
 }
 
 model AdjustmentReason {
@@ -157,6 +128,4 @@ model AdjustmentReason {
   updatedAt          DateTime @updatedAt
   createdByID        Int
   modifiedByID       Int?
-
-  // adjustments        InventoryAdjustment[] // Relation to adjustments
 }
