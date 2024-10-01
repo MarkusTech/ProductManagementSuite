@@ -27,6 +27,7 @@ import purchaseOrderRoutes from "./routes/po_purchaseOrder.routes";
 import purchaseOrderItemRoutes from "./routes/po_purchaseOrderItem.routes";
 import poReceivingItemRoutes from "./routes/po_poReceivingItem.routes";
 import poReceivingRoutes from "./routes/po_poReceiving.routes";
+import poSupplierRoutes from "./routes/po_supplier.routes";
 
 // Initialize express app
 const app = express();
@@ -90,6 +91,7 @@ app.use("/api/v2", purchaseOrderRoutes);
 app.use("/api/v2", purchaseOrderItemRoutes);
 app.use("/api/v2", poReceivingItemRoutes);
 app.use("/api/v2", poReceivingRoutes);
+app.use("/api/v2", poSupplierRoutes);
 
 // Error Handling Middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
