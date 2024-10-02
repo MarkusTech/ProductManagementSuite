@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-import { CustomError } from "../utils/CustomError"; // Custom error handling
-import logger from "../utils/logger"; // Import Winston logger
+import { CustomError } from "../utils/CustomError";
+import logger from "../utils/logger";
 
 const prisma = new PrismaClient();
 
