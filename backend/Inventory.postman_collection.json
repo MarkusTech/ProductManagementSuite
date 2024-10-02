@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "d64f72ff-f083-4d97-a234-e3bec9942405",
+		"_postman_id": "cb95a9d6-19f5-4c1a-9c1a-30ad5703ab74",
 		"name": "Inventory",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "28945356"
+		"_exporter_id": "33131742"
 	},
 	"item": [
 		{
@@ -72,16 +72,6 @@
 				{
 					"name": "Get All users",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoid2VubndvcmtzIiwicm9sZUlEIjoxLCJpYXQiOjE3Mjc3NDgwMjcsImV4cCI6MTcyNzc1MTYyN30.FpiH5Ztn2DvvdUtGtEzqIFZzklMyNYwvTgYvj6JLkjQ",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -95,6 +85,28 @@
 								"api",
 								"v1",
 								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1"
 							]
 						}
 					},
@@ -147,6 +159,49 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get Adjustment Reason",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/adjustment-reason",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"adjustment-reason"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Adjustment Reason By ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/adjustment-reason/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"adjustment-reason",
+										"2"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -188,6 +243,49 @@
 										"api",
 										"v1",
 										"adjustment-type"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Adjustment Type",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/adjustment-type",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"adjustment-type"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Adjustment Type By ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/adjustment-type/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"adjustment-type",
+										"2"
 									]
 								}
 							},
@@ -237,6 +335,49 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get Inventory Adjustment",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/inventory-adjustment",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"inventory-adjustment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Inventory Adjustment By ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/inventory-adjustment/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"inventory-adjustment",
+										"2"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -278,6 +419,49 @@
 										"api",
 										"v1",
 										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Categories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Category BY ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/categories/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"categories",
+										"3"
 									]
 								}
 							},
@@ -327,6 +511,49 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get All Suppliers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/suppliers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"suppliers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Selected Supplier",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/suppliers/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"suppliers",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -368,6 +595,49 @@
 										"api",
 										"v1",
 										"items"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All item",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/items",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"items"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Selected Itm",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/items/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"items",
+										"3"
 									]
 								}
 							},
@@ -417,6 +687,49 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get All Locations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/locations",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"locations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Selected Location",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/locations/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"locations",
+										"4"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -462,6 +775,49 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get All Inventory Type",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/inventory-type",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"inventory-type"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Selected Inventory Type",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/inventory-type/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"inventory-type",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -503,6 +859,49 @@
 										"api",
 										"v1",
 										"inventory"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Inventory",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/inventory",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"inventory"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Selected Inventory",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/inventory/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"inventory",
+										"2"
 									]
 								}
 							},
@@ -557,6 +956,49 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get All Purchase Order",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v2/purchase-orders",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v2",
+										"purchase-orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Selected Purchase Order",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v2/purchase-orders/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v2",
+										"purchase-orders",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -602,6 +1044,49 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get all Purchase Order Item",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v2/purchase-order-items",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v2",
+										"purchase-order-items"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Selected Purchase Order Item",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v2/purchase-order-items/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v2",
+										"purchase-order-items",
+										"2"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -609,7 +1094,7 @@
 					"name": "PO Receiving Item",
 					"item": [
 						{
-							"name": "Create PO Receiving",
+							"name": "Create PO Receiving Item",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -643,6 +1128,49 @@
 										"api",
 										"v2",
 										"po-receiving-items"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Po Receiving Item",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v2/po-receiving-items",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v2",
+										"po-receiving-items"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Selected PO Receiving Item",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v2/po-receiving-items/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v2",
+										"po-receiving-items",
+										"2"
 									]
 								}
 							},
@@ -692,6 +1220,49 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get All Po Receiving",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v2/po-receiving",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v2",
+										"po-receiving"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Selected PO Receiving",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v2/po-receiving/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v2",
+										"po-receiving",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -737,10 +1308,85 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get All Supplier",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v2/suppliers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v2",
+										"suppliers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Selected Supplier",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v2/suppliers/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v2",
+										"suppliers",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
 			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoid2VubndvcmtzIiwicm9sZUlEIjoxLCJpYXQiOjE3Mjc4MzQyNTYsImV4cCI6MTcyNzgzNzg1Nn0.csy-bQwj0dGUMh7TymRBYMIv75Dh-UVmSHoqlafeqOU",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
