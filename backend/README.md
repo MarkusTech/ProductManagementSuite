@@ -14,6 +14,7 @@
 
 # prisma migration
 
+- npm install @prisma/client
 - npx prisma migrate dev --name init
 - npx prisma generate
 - npx prisma studio
@@ -23,4 +24,9 @@
 - npm run seed
 
 # To run
+
 - npm run dev
+
+# Setup on other device
+
+- npm i
