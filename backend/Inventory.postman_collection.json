@@ -45,13 +45,74 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"firstName\": \"John\",\r\n  \"middleName\": \"Doe\",\r\n  \"lastName\": \"Smith\",\r\n  \"roleID\": 1,\r\n  \"username\": \"wennworks\",\r\n  \"email\": \"wm.recopelacion@gmail.com\",\r\n  \"password\": \"123\",\r\n  \"phoneNumber\": \"1234567890\",\r\n  \"address\": \"123 Main St\",\r\n  \"birthday\": \"1990-01-01\",\r\n  \"image_url\": \"http://example.com/image.jpg\",\r\n  \"createdByID\": 1,\r\n  \"modifiedByID\": 1\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "firstName",
+									"value": "wenn mark1",
+									"type": "text"
+								},
+								{
+									"key": "middleName",
+									"value": "cabaron1",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "Recopelacion1",
+									"type": "text"
+								},
+								{
+									"key": "roleID",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "markus091251",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "markus.091231@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1231",
+									"type": "text"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "09078249018",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "123 Main St, City",
+									"type": "text"
+								},
+								{
+									"key": "birthday",
+									"value": "1990-01-01",
+									"type": "text"
+								},
+								{
+									"key": "createdByID",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "modifiedByID",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/WEB DEV PC/Pictures/440341744_417624294357624_6768898013656832070_n.jpg"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:5000/api/v1/users",
@@ -1362,7 +1423,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoid2VubndvcmtzIiwicm9sZUlEIjoxLCJpYXQiOjE3Mjc4MzQyNTYsImV4cCI6MTcyNzgzNzg1Nn0.csy-bQwj0dGUMh7TymRBYMIv75Dh-UVmSHoqlafeqOU",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoid2VubndvcmtzIiwicm9sZUlEIjoxLCJpYXQiOjE3Mjc4MzkyNzQsImV4cCI6MTcyNzg0Mjg3NH0.H5XYggRmcRGgDcjXCUh4SkoLydFVDmsLjKX-LllyEfA",
 				"type": "string"
 			}
 		]
