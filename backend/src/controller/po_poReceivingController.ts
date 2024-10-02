@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { CustomError } from "../utils/CustomError";
+import logger from "../utils/logger"; // Import Winston logger
 
 const prisma = new PrismaClient();
 
@@ -32,13 +33,23 @@ export class PoReceivingController {
         },
       });
 
+      logger.info(
+        `PO Receiving created: ID ${newPoReceiving.poReceivingID}, PO ID ${poID}`
+      );
+
       res.status(201).json({
         success: true,
         message: "PO Receiving created successfully",
         data: newPoReceiving,
       });
     } catch (error) {
-      throw new CustomError("Error creating PO receiving", 500);
+      if (error instanceof Error) {
+        logger.error(`Error creating PO receiving: ${error.message}`);
+        throw new CustomError("Error creating PO receiving", 500);
+      } else {
+        logger.error("Unknown error occurred during PO receiving creation");
+        throw new CustomError("Unknown error", 500);
+      }
     }
   }
 
@@ -46,12 +57,22 @@ export class PoReceivingController {
   async getAllPoReceiving(req: Request, res: Response): Promise<void> {
     try {
       const poReceivingRecords = await prisma.poReceiving.findMany();
+      logger.info("Fetched all PO receiving records");
+
       res.status(200).json({
         success: true,
         data: poReceivingRecords,
       });
     } catch (error) {
-      throw new CustomError("Error fetching PO receiving records", 500);
+      if (error instanceof Error) {
+        logger.error(`Error fetching PO receiving records: ${error.message}`);
+        throw new CustomError("Error fetching PO receiving records", 500);
+      } else {
+        logger.error(
+          "Unknown error occurred while fetching PO receiving records"
+        );
+        throw new CustomError("Unknown error", 500);
+      }
     }
   }
 
@@ -65,18 +86,26 @@ export class PoReceivingController {
       });
 
       if (!poReceiving) {
+        logger.warn(`PO Receiving with ID ${poReceivingID} not found`);
         res.status(404).json({
           success: false,
           message: "PO Receiving not found",
         });
       } else {
+        logger.info(`Fetched PO Receiving with ID ${poReceivingID}`);
         res.status(200).json({
           success: true,
           data: poReceiving,
         });
       }
     } catch (error) {
-      throw new CustomError("Error fetching PO receiving", 500);
+      if (error instanceof Error) {
+        logger.error(`Error fetching PO receiving: ${error.message}`);
+        throw new CustomError("Error fetching PO receiving", 500);
+      } else {
+        logger.error("Unknown error occurred while fetching PO receiving");
+        throw new CustomError("Unknown error", 500);
+      }
     }
   }
 
@@ -108,13 +137,21 @@ export class PoReceivingController {
         },
       });
 
+      logger.info(`PO Receiving with ID ${poReceivingID} updated`);
+
       res.status(200).json({
         success: true,
         message: "PO Receiving updated successfully",
         data: updatedPoReceiving,
       });
     } catch (error) {
-      throw new CustomError("Error updating PO receiving", 500);
+      if (error instanceof Error) {
+        logger.error(`Error updating PO receiving: ${error.message}`);
+        throw new CustomError("Error updating PO receiving", 500);
+      } else {
+        logger.error("Unknown error occurred while updating PO receiving");
+        throw new CustomError("Unknown error", 500);
+      }
     }
   }
 
@@ -127,12 +164,20 @@ export class PoReceivingController {
         where: { poReceivingID: parseInt(poReceivingID) },
       });
 
+      logger.info(`PO Receiving with ID ${poReceivingID} deleted`);
+
       res.status(200).json({
         success: true,
         message: "PO Receiving deleted successfully",
       });
     } catch (error) {
-      throw new CustomError("Error deleting PO receiving", 500);
+      if (error instanceof Error) {
+        logger.error(`Error deleting PO receiving: ${error.message}`);
+        throw new CustomError("Error deleting PO receiving", 500);
+      } else {
+        logger.error("Unknown error occurred while deleting PO receiving");
+        throw new CustomError("Unknown error", 500);
+      }
     }
   }
 }
