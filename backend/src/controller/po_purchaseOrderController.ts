@@ -1,13 +1,23 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { CustomError } from "../utils/CustomError"; // Assuming you have a CustomError utility class
+import logger from "../utils/logger"; // Import Winston logger
 
 const prisma = new PrismaClient();
 
 export class PurchaseOrderController {
   // Create a new PurchaseOrder
   async createPurchaseOrder(req: Request, res: Response): Promise<void> {
-    const { poNumber, supplierID, orderDate, expectedDeliverDate, status, locationID, createdByID, modifiedByID } = req.body;
+    const {
+      poNumber,
+      supplierID,
+      orderDate,
+      expectedDeliverDate,
+      status,
+      locationID,
+      createdByID,
+      modifiedByID,
+    } = req.body;
 
     try {
       const newPurchaseOrder = await prisma.purchaseOrder.create({
@@ -23,13 +33,23 @@ export class PurchaseOrderController {
         },
       });
 
+      logger.info(
+        `Purchase Order created: PO Number ${poNumber}, Supplier ID ${supplierID}`
+      );
+
       res.status(201).json({
         success: true,
         message: "Purchase Order created successfully",
         data: newPurchaseOrder,
       });
     } catch (error) {
-      throw new CustomError("Error creating purchase order", 500);
+      if (error instanceof Error) {
+        logger.error(`Error creating purchase order: ${error.message}`);
+        throw new CustomError("Error creating purchase order", 500);
+      } else {
+        logger.error("Unknown error occurred during purchase order creation");
+        throw new CustomError("Unknown error", 500);
+      }
     }
   }
 
@@ -37,12 +57,20 @@ export class PurchaseOrderController {
   async getAllPurchaseOrders(req: Request, res: Response): Promise<void> {
     try {
       const purchaseOrders = await prisma.purchaseOrder.findMany();
+      logger.info("Fetched all purchase orders");
+
       res.status(200).json({
         success: true,
         data: purchaseOrders,
       });
     } catch (error) {
-      throw new CustomError("Error fetching purchase orders", 500);
+      if (error instanceof Error) {
+        logger.error(`Error fetching purchase orders: ${error.message}`);
+        throw new CustomError("Error fetching purchase orders", 500);
+      } else {
+        logger.error("Unknown error occurred while fetching purchase orders");
+        throw new CustomError("Unknown error", 500);
+      }
     }
   }
 
@@ -56,25 +84,41 @@ export class PurchaseOrderController {
       });
 
       if (!purchaseOrder) {
+        logger.warn(`Purchase Order with ID ${poID} not found`);
         res.status(404).json({
           success: false,
           message: "Purchase Order not found",
         });
       } else {
+        logger.info(`Fetched Purchase Order with ID ${poID}`);
         res.status(200).json({
           success: true,
           data: purchaseOrder,
         });
       }
     } catch (error) {
-      throw new CustomError("Error fetching purchase order", 500);
+      if (error instanceof Error) {
+        logger.error(`Error fetching purchase order: ${error.message}`);
+        throw new CustomError("Error fetching purchase order", 500);
+      } else {
+        logger.error("Unknown error occurred while fetching purchase order");
+        throw new CustomError("Unknown error", 500);
+      }
     }
   }
 
   // Update PurchaseOrder
   async updatePurchaseOrder(req: Request, res: Response): Promise<void> {
     const { poID } = req.params;
-    const { poNumber, supplierID, orderDate, expectedDeliverDate, status, locationID, modifiedByID } = req.body;
+    const {
+      poNumber,
+      supplierID,
+      orderDate,
+      expectedDeliverDate,
+      status,
+      locationID,
+      modifiedByID,
+    } = req.body;
 
     try {
       const updatedPurchaseOrder = await prisma.purchaseOrder.update({
@@ -90,13 +134,21 @@ export class PurchaseOrderController {
         },
       });
 
+      logger.info(`Purchase Order with ID ${poID} updated`);
+
       res.status(200).json({
         success: true,
         message: "Purchase Order updated successfully",
         data: updatedPurchaseOrder,
       });
     } catch (error) {
-      throw new CustomError("Error updating purchase order", 500);
+      if (error instanceof Error) {
+        logger.error(`Error updating purchase order: ${error.message}`);
+        throw new CustomError("Error updating purchase order", 500);
+      } else {
+        logger.error("Unknown error occurred while updating purchase order");
+        throw new CustomError("Unknown error", 500);
+      }
     }
   }
 
@@ -109,12 +161,20 @@ export class PurchaseOrderController {
         where: { poID: parseInt(poID) },
       });
 
+      logger.info(`Purchase Order with ID ${poID} deleted`);
+
       res.status(200).json({
         success: true,
         message: "Purchase Order deleted successfully",
       });
     } catch (error) {
-      throw new CustomError("Error deleting purchase order", 500);
+      if (error instanceof Error) {
+        logger.error(`Error deleting purchase order: ${error.message}`);
+        throw new CustomError("Error deleting purchase order", 500);
+      } else {
+        logger.error("Unknown error occurred while deleting purchase order");
+        throw new CustomError("Unknown error", 500);
+      }
     }
   }
 }
