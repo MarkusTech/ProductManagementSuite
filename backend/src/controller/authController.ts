@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import logger from "../utils/logger"; // Import Winston logger
 
 const prisma = new PrismaClient();
 
@@ -16,6 +17,9 @@ export class AuthController {
       });
 
       if (!user) {
+        logger.warn(
+          `Login attempt failed: User not found for username ${username}`
+        );
         res.status(400).json({ error: "User not found" });
         return;
       }
@@ -23,6 +27,9 @@ export class AuthController {
       // Check if the password is correct
       const isValidPassword = await bcrypt.compare(password, user.password);
       if (!isValidPassword) {
+        logger.warn(
+          `Login attempt failed: Invalid password for username ${username}`
+        );
         res.status(400).json({ error: "Invalid password" });
         return;
       }
@@ -34,9 +41,13 @@ export class AuthController {
         { expiresIn: "1h" }
       );
 
+      logger.info(`User ${username} logged in successfully`);
+
       res.status(200).json({ token });
     } catch (error) {
-      console.error("Login error:", error);
+      logger.error(
+        `Login error for username ${username}: ${(error as Error).message}`
+      );
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
       } else {
@@ -45,7 +56,9 @@ export class AuthController {
     }
   }
 
+  // Logout method
   logout(req: Request, res: Response): void {
+    logger.info("User logged out successfully");
     res.status(200).json({ message: "Logged out successfully" });
   }
 }

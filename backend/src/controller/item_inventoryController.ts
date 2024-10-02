@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { CustomError } from "../utils/CustomError";
+import logger from "../utils/logger"; // Import Winston logger
 
 const prisma = new PrismaClient();
 
@@ -21,13 +22,22 @@ export class InventoryController {
         },
       });
 
+      logger.info(
+        `Inventory created: ID ${newInventory.inventoryID}, Item ID ${itemID}`
+      );
+
       res.status(201).json({
         success: true,
         message: "Inventory created successfully",
         data: newInventory,
       });
-    } catch (error) {
-      throw new CustomError("Error creating inventory", 500);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        logger.error(`Error creating inventory: ${error.message}`);
+        throw new CustomError("Error creating inventory", 500);
+      }
+      logger.error("An unexpected error occurred while creating inventory");
+      throw new CustomError("An unexpected error occurred", 500);
     }
   }
 
@@ -35,11 +45,14 @@ export class InventoryController {
   async getAllInventory(req: Request, res: Response): Promise<void> {
     try {
       const inventory = await prisma.inventory.findMany();
+      logger.info("Fetched all inventory records");
+
       res.status(200).json({
         success: true,
         data: inventory,
       });
     } catch (error) {
+      logger.error(`Error fetching inventory: ${(error as Error).message}`);
       throw new CustomError("Error fetching inventory", 500);
     }
   }
@@ -54,17 +67,20 @@ export class InventoryController {
       });
 
       if (!inventory) {
+        logger.warn(`Inventory with ID ${inventoryID} not found`);
         res.status(404).json({
           success: false,
           message: "Inventory not found",
         });
       } else {
+        logger.info(`Fetched inventory with ID ${inventoryID}`);
         res.status(200).json({
           success: true,
           data: inventory,
         });
       }
     } catch (error) {
+      logger.error(`Error fetching inventory: ${(error as Error).message}`);
       throw new CustomError("Error fetching inventory", 500);
     }
   }
@@ -87,12 +103,15 @@ export class InventoryController {
         },
       });
 
+      logger.info(`Inventory with ID ${inventoryID} updated`);
+
       res.status(200).json({
         success: true,
         message: "Inventory updated successfully",
         data: updatedInventory,
       });
     } catch (error) {
+      logger.error(`Error updating inventory: ${(error as Error).message}`);
       throw new CustomError("Error updating inventory", 500);
     }
   }
@@ -106,11 +125,14 @@ export class InventoryController {
         where: { inventoryID: parseInt(inventoryID) },
       });
 
+      logger.info(`Inventory with ID ${inventoryID} deleted`);
+
       res.status(200).json({
         success: true,
         message: "Inventory deleted successfully",
       });
     } catch (error) {
+      logger.error(`Error deleting inventory: ${(error as Error).message}`);
       throw new CustomError("Error deleting inventory", 500);
     }
   }

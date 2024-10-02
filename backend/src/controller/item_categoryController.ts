@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { CustomError } from "../utils/CustomError";
+import logger from "../utils/logger"; // Import Winston logger
 
 const prisma = new PrismaClient();
 
@@ -19,6 +20,8 @@ export class CategoryController {
         },
       });
 
+      logger.info(`Category created: ID ${newCategory.categoryID}`);
+
       res.status(201).json({
         success: true,
         message: "Category created successfully",
@@ -26,8 +29,10 @@ export class CategoryController {
       });
     } catch (error: unknown) {
       if (error instanceof Error) {
+        logger.error(`Error creating category: ${error.message}`);
         throw new CustomError("Error creating category", 500);
       }
+      logger.error("An unexpected error occurred while creating category");
       throw new CustomError("An unexpected error occurred", 500);
     }
   }
@@ -36,11 +41,14 @@ export class CategoryController {
   async getAllCategories(req: Request, res: Response): Promise<void> {
     try {
       const categories = await prisma.categories.findMany();
+      logger.info("Fetched all categories");
+
       res.status(200).json({
         success: true,
         data: categories,
       });
     } catch (error) {
+      logger.error(`Error fetching categories: ${(error as Error).message}`);
       throw new CustomError("Error fetching categories", 500);
     }
   }
@@ -55,14 +63,17 @@ export class CategoryController {
       });
 
       if (!category) {
+        logger.warn(`Category with ID ${categoryID} not found`);
         throw new CustomError("Category not found", 404);
       } else {
+        logger.info(`Fetched category with ID ${categoryID}`);
         res.status(200).json({
           success: true,
           data: category,
         });
       }
     } catch (error) {
+      logger.error(`Error fetching category: ${(error as Error).message}`);
       throw new CustomError("Error fetching category", 500);
     }
   }
@@ -83,12 +94,15 @@ export class CategoryController {
         },
       });
 
+      logger.info(`Category with ID ${categoryID} updated`);
+
       res.status(200).json({
         success: true,
         message: "Category updated successfully",
         data: updatedCategory,
       });
     } catch (error) {
+      logger.error(`Error updating category: ${(error as Error).message}`);
       throw new CustomError("Error updating category", 500);
     }
   }
@@ -102,11 +116,14 @@ export class CategoryController {
         where: { categoryID: parseInt(categoryID) },
       });
 
+      logger.info(`Category with ID ${categoryID} deleted`);
+
       res.status(200).json({
         success: true,
         message: "Category deleted successfully",
       });
     } catch (error) {
+      logger.error(`Error deleting category: ${(error as Error).message}`);
       throw new CustomError("Error deleting category", 500);
     }
   }
