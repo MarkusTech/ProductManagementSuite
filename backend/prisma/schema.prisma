@@ -21,7 +21,7 @@ model Users {
   address      String
   birthday     String
   status       Boolean  @default(true)
-  image_url    String
+  image_url    String?
   createdByID  Int
   modifiedByID Int
   createdAt    DateTime @default(now())

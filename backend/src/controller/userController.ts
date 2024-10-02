@@ -19,30 +19,33 @@ export class UserController {
       phoneNumber,
       address,
       birthday,
-      image_url,
       createdByID,
       modifiedByID,
     } = req.body;
 
-    try {
-      // Hash the password
-      const hashedPassword = await bcrypt.hash(password, 10);
+    let image_url: string | null = null;
 
+    if (req.file) {
+      image_url = req.file.path; // Save the file path
+    }
+
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = await prisma.users.create({
         data: {
           firstName,
           middleName,
           lastName,
-          roleID,
+          roleID: parseInt(roleID, 10),
           username,
           email,
-          password: hashedPassword, // Save hashed password
+          password: hashedPassword,
           phoneNumber,
           address,
           birthday,
           image_url,
-          createdByID,
-          modifiedByID,
+          createdByID: parseInt(createdByID, 10),
+          modifiedByID: parseInt(modifiedByID, 10),
         },
       });
 
@@ -51,11 +54,12 @@ export class UserController {
         message: "User created successfully",
         data: newUser,
       });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        throw new CustomError("Error creating user", 500);
-      }
-      throw new CustomError("An unexpected error occurred", 500);
+    } catch (error) {
+      console.error("Error creating user:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error creating user",
+      });
     }
   }
 
