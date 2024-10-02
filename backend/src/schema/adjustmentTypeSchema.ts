@@ -1,10 +1,11 @@
 import { z } from "zod";
 
-export const AdjustmentTypeSchema = z.object({
-  adjustmentTypeID: z.number().int().optional(),
-  typeName: z.string().nonempty(),
-  createdByID: z.number().int(),
+export const CreateAdjustmentTypeSchema = z.object({
+  typeName: z.string().min(1, { message: "Type name is required" }),
+  createdByID: z.number().int({ message: "CreatedByID must be an integer" }),
+});
+
+export const UpdateAdjustmentTypeSchema = z.object({
+  typeName: z.string().min(1, { message: "Type name is required" }).optional(),
   modifiedByID: z.number().int().optional(),
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
 });
