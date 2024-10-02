@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import { CustomError } from "../utils/CustomError";
+import logger from "../utils/logger"; // Import Winston logger
 
 const prisma = new PrismaClient();
 
@@ -49,17 +50,27 @@ export class UserController {
         },
       });
 
+      logger.info(`User created: ${newUser.username}`);
+
       res.status(201).json({
         success: true,
         message: "User created successfully",
         data: newUser,
       });
     } catch (error) {
-      console.error("Error creating user:", error);
-      res.status(500).json({
-        success: false,
-        message: "Error creating user",
-      });
+      if (error instanceof Error) {
+        logger.error(`Error creating user: ${error.message}`);
+        res.status(500).json({
+          success: false,
+          message: "Error creating user",
+        });
+      } else {
+        logger.error("Unknown error occurred during user creation");
+        res.status(500).json({
+          success: false,
+          message: "Unknown error",
+        });
+      }
     }
   }
 
@@ -67,12 +78,19 @@ export class UserController {
   async getAllUsers(req: Request, res: Response): Promise<void> {
     try {
       const users = await prisma.users.findMany();
+      logger.info("Fetched all users");
       res.status(200).json({
         success: true,
         data: users,
       });
     } catch (error) {
-      throw new CustomError("Error fetching users", 500);
+      if (error instanceof Error) {
+        logger.error(`Error fetching users: ${error.message}`);
+        throw new CustomError("Error fetching users", 500);
+      } else {
+        logger.error("Unknown error occurred while fetching users");
+        throw new CustomError("Unknown error", 500);
+      }
     }
   }
 
@@ -86,15 +104,23 @@ export class UserController {
       });
 
       if (!user) {
+        logger.warn(`User with ID ${userID} not found`);
         throw new CustomError("User not found", 404);
       } else {
+        logger.info(`Fetched user with ID ${userID}`);
         res.status(200).json({
           success: true,
           data: user,
         });
       }
     } catch (error) {
-      throw new CustomError("Error fetching user", 500);
+      if (error instanceof Error) {
+        logger.error(`Error fetching user: ${error.message}`);
+        throw new CustomError("Error fetching user", 500);
+      } else {
+        logger.error("Unknown error occurred while fetching user");
+        throw new CustomError("Unknown error", 500);
+      }
     }
   }
 
@@ -135,13 +161,21 @@ export class UserController {
         },
       });
 
+      logger.info(`User with ID ${userID} updated`);
+
       res.status(200).json({
         success: true,
         message: "User updated successfully",
         data: updatedUser,
       });
     } catch (error) {
-      throw new CustomError("Error updating user", 500);
+      if (error instanceof Error) {
+        logger.error(`Error updating user: ${error.message}`);
+        throw new CustomError("Error updating user", 500);
+      } else {
+        logger.error("Unknown error occurred while updating user");
+        throw new CustomError("Unknown error", 500);
+      }
     }
   }
 
@@ -154,12 +188,20 @@ export class UserController {
         where: { userID: parseInt(userID) },
       });
 
+      logger.info(`User with ID ${userID} deleted`);
+
       res.status(200).json({
         success: true,
         message: "User deleted successfully",
       });
     } catch (error) {
-      throw new CustomError("Error deleting user", 500);
+      if (error instanceof Error) {
+        logger.error(`Error deleting user: ${error.message}`);
+        throw new CustomError("Error deleting user", 500);
+      } else {
+        logger.error("Unknown error occurred while deleting user");
+        throw new CustomError("Unknown error", 500);
+      }
     }
   }
 }
